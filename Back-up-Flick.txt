@@ -1,0 +1,147 @@
+--// Back-Up GUI | SpeedBoost Setup Only (Persistent)
+--// Author: AcxScripter
+
+-- Services
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Variable to track if SpeedBoost is enabled
+local speedBoostEnabled = false
+local walkSpeedValue = 25 -- SpeedBoost value
+
+-- Function to apply SpeedBoost
+local function applySpeedBoost(character)
+local humanoid = character:WaitForChild("Humanoid")
+if speedBoostEnabled then
+humanoid.WalkSpeed = walkSpeedValue
+end
+end
+
+-- Listen to character spawn to reapply SpeedBoost
+player.CharacterAdded:Connect(function(char)
+applySpeedBoost(char)
+end)
+
+-- ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "BackupGUI"
+screenGui.ResetOnSpawn = false
+screenGui.IgnoreGuiInset = true
+screenGui.Parent = playerGui
+
+-- Main Frame
+local mainFrame = Instance.new("Frame")
+mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+mainFrame.Size = UDim2.new(0, 400, 0, 200)
+mainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+mainFrame.BorderSizePixel = 0
+mainFrame.ClipsDescendants = true
+mainFrame.Parent = screenGui
+
+-- Rounded corner + border
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 15)
+corner.Parent = mainFrame
+
+local border = Instance.new("UIStroke")
+border.Color = Color3.fromRGB(255, 0, 0)
+border.Thickness = 3
+border.Parent = mainFrame
+
+-- Text
+local label = Instance.new("TextLabel")
+label.AnchorPoint = Vector2.new(0.5, 0)
+label.Position = UDim2.new(0.5, 0, 0, 25)
+label.Size = UDim2.new(0.9, 0, 0, 70)
+label.BackgroundTransparency = 1
+label.Text = "Do you want to enable SpeedBoost (30)?"
+label.TextColor3 = Color3.fromRGB(255, 0, 0)
+label.Font = Enum.Font.GothamBold
+label.TextWrapped = true
+label.TextSize = 18
+label.Parent = mainFrame
+
+-- Button Holder
+local buttonHolder = Instance.new("Frame")
+buttonHolder.AnchorPoint = Vector2.new(0.5, 1)
+buttonHolder.Position = UDim2.new(0.5, 0, 1, -20)
+buttonHolder.Size = UDim2.new(1, 0, 0, 60)
+buttonHolder.BackgroundTransparency = 1
+buttonHolder.Parent = mainFrame
+
+-- Function to make rounded black button w/ red border
+local function createButton(text, offsetX)
+local container = Instance.new("Frame")
+container.AnchorPoint = Vector2.new(0.5, 0.5)
+container.Position = UDim2.new(0.5, offsetX, 0.5, 0)
+container.Size = UDim2.new(0, 130, 0, 45)
+container.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+container.Parent = buttonHolder
+
+local corner = Instance.new("UICorner")    
+corner.CornerRadius = UDim.new(0, 12)    
+corner.Parent = container    
+
+local stroke = Instance.new("UIStroke")    
+stroke.Color = Color3.fromRGB(255, 0, 0)    
+stroke.Thickness = 2    
+stroke.Parent = container    
+
+local btn = Instance.new("TextButton")    
+btn.Size = UDim2.new(1, 0, 1, 0)    
+btn.BackgroundTransparency = 1    
+btn.TextColor3 = Color3.fromRGB(255, 0, 0)    
+btn.Font = Enum.Font.GothamBold    
+btn.TextSize = 20    
+btn.Text = text    
+btn.Parent = container    
+
+return btn
+
+end
+
+-- Create Yes / No buttons
+local yesBtn = createButton("Yes", -90)
+local noBtn = createButton("No", 90)
+
+-- Fade out transition
+local function fadeOut(callback)
+for _, obj in pairs(mainFrame:GetDescendants()) do
+if obj:IsA("TextLabel") or obj:IsA("TextButton") then
+TweenService:Create(obj, TweenInfo.new(0.4), {TextTransparency = 1}):Play()
+elseif obj:IsA("UIStroke") then
+TweenService:Create(obj, TweenInfo.new(0.4), {Transparency = 1}):Play()
+elseif obj:IsA("Frame") then
+TweenService:Create(obj, TweenInfo.new(0.4), {BackgroundTransparency = 1}):Play()
+end
+end
+TweenService:Create(mainFrame, TweenInfo.new(0.4), {BackgroundTransparency = 1}):Play()
+task.wait(0.5)
+screenGui:Destroy()
+if callback then callback() end
+end
+
+-- Placeholder for main GUI (currently none)
+local function openMainGUI()
+-- You can place your real main GUI code here later
+end
+
+-- When “Yes” is pressed
+yesBtn.MouseButton1Click:Connect(function()
+speedBoostEnabled = true
+-- Apply immediately to current character
+applySpeedBoost(player.Character)
+fadeOut(function()
+openMainGUI()
+end)
+end)
+
+-- When “No” is pressed
+noBtn.MouseButton1Click:Connect(function()
+fadeOut(function()
+openMainGUI()
+end)
+end)
