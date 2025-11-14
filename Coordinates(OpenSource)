@@ -1,0 +1,21 @@
+local player = game.Players.LocalPlayer
+local RunService = game:GetService("RunService")
+
+local screenGui = Instance.new("ScreenGui", player.PlayerGui)
+local coordLabel = Instance.new("TextLabel", screenGui)
+
+coordLabel.Size = UDim2.new(0, 300, 0, 50)
+coordLabel.Position = UDim2.new(0, 10, 0, 10)
+coordLabel.BackgroundTransparency = 0.5
+coordLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+coordLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+coordLabel.Font = Enum.Font.GothamBold
+coordLabel.TextSize = 16
+coordLabel.Text = "Loading Coordinates..."
+
+RunService.RenderStepped:Connect(function()
+    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        local pos = player.Character.HumanoidRootPart.Position
+        coordLabel.Text = string.format("X: %.2f | Y: %.2f | Z: %.2f", pos.X, pos.Y, pos.Z)
+    end
+end)
