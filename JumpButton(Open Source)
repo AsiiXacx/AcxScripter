@@ -1,0 +1,25 @@
+while true do
+    local Players = game:GetService("Players")
+    local player = Players.LocalPlayer
+    local playerGui = player:WaitForChild("PlayerGui")
+
+    local touchGui = playerGui:WaitForChild("TouchGui")
+    local touchFrame = touchGui:WaitForChild("TouchControlFrame")
+    local jumpButton = touchFrame:WaitForChild("JumpButton")
+
+    -- Return to default/original size & position
+    jumpButton.Size = UDim2.new(0.1, 0, 0.22, 0)  -- default size
+    jumpButton.Position = UDim2.new(1, -120, 1, -120) -- original position (bottom-right)
+
+    -- Make it red
+    jumpButton.ImageColor3 = Color3.fromRGB(255, 0, 0)
+
+    -- Make sure it stays rounded
+    if not jumpButton:FindFirstChild("UICorner") then
+        local uiCorner = Instance.new("UICorner")
+        uiCorner.CornerRadius = UDim.new(1, 0)
+        uiCorner.Parent = jumpButton
+    end
+
+    task.wait(1)
+end
