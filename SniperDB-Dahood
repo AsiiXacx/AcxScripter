@@ -213,3 +213,4 @@ UserInput.InputBegan:Connect(function(Input, GameProcessed)
         ForceHit.Enabled = not ForceHit.Enabled
     end
 end)
+
