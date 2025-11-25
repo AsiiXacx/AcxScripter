@@ -1,0 +1,41 @@
+getgenv()._=        
+"Join discord.gg/msgabv2t9Q | discord.gg/stando to get latest update ok bai | If you pay for this script you get scammed, this script is completely free ok"        
+        
+getgenv().Alts = { --Uses for serverhop (must enable serverhop) (check if ur alt is on same server as ur another alt (it will serverhop again))        
+    1,        
+    2,        
+    3,        
+    4,        
+    5        
+}        
+        
+getgenv().Configuration = {        
+    ['AttackMethod'] = 2, --1 light punch | 2 heavy punch | 3 knife | 4 gun combat | Using 3/4 means u have to increase PickUpInterval and CashInterval        
+        
+    ['UI'] = false, --Self explainatory        
+    ['UIBackground'] = 9, --UIBackground (rechangeable through) 1 - 9 (default pureblack (1))        
+        
+    ['CashInterval'] = 0, --Cash pickup cooldown (seconds per pickup (wisely choose your own settings.))        
+    ['PickUpInterval'] = 0, --Cash pickup seconds (wait a second before CashInterval to run (dont change this setting if you dont know what your doing..))        
+    ['TeleportInterval'] = 0, --Cash teleport cooldown (seconds per pickup teleport (dont change if you dont know what your doing))        
+        
+    ['IgnoreIndex'] = false, --Set to true if your getting stuck on LMG spot        
+        
+    ['ServerHop'] = false, --Self explainatory (doesnt work on xeno/solara or any executor that doesnt support request)        
+    ['ServerHopNum'] = 5, --Death before hop (if 5 DeathCount it will automatically serverhop)        
+    ['SortOrder'] = "Desc", --Asc | Desc (Asc Lowest to Highest | Desc Highest to Lowest)        
+        
+    ['Enabled'] = true, --Self explainatory (webhook loader)        
+    ['Webhook'] = '', --Webhook        
+    ['Interval'] = 2, --Time before sending (webhook) converted to min        
+        
+    ['NoVolume'] = true, --Remove roblox volume        
+    ['AntiStomp'] = true, --AntiStomp (Self explainatory)        
+    ['LowGraphic'] = false, --Make your game look potato but significantly increases your fps        
+    ['AutoCode'] = true, --AutoCode (Self explainatory)        
+    ['OcclusionCamera'] = true, --Make your cam goes through wall (like xray)        
+        
+    ['Fps'] = 15 --Wouldnt recommend going below 5 (lower fps means u need to increase your CashInterval | PickUpInterval)        
+}loadstring(game:HttpGet("https://xk5ng.github.io/Autofarm"))()      
+      
+(THIS NOT FOR EXPLOITING, AND USING THIS SCRIPT IN PROPERLY AND NOT TO TROLL OTHERS PLAYER)
